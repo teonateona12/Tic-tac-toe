@@ -1,0 +1,219 @@
+body {
+  background-color: #1a2a33;
+  font-family: "Outfit", sans-serif;
+}
+.blur {
+  filter: blur(2px);
+}
+.head {
+  padding: 24px;
+}
+.logo {
+  display: flex;
+  margin: auto;
+  margin-top: 118px;
+}
+main {
+  background-color: #1f3641;
+  box-shadow: inset 0px -8px 0px #10212a;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 30px;
+}
+.main-text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #a8bfc9;
+  text-align: center;
+}
+.choose-player {
+  background-color: #1a2a33;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.active {
+  background-color: #a8bfc9;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40%;
+}
+.img-o,
+.img-x {
+  display: flex;
+  margin: auto;
+}
+.not-active {
+  background-color: #1a2a33;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40%;
+}
+.remainder-main {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.875px;
+  color: #a8bfc9;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+.btn-one {
+  background: #f2b137;
+  box-shadow: inset 0px -8px 0px #cc8b13;
+  margin: 30px 0 10px 0;
+}
+.btn-two {
+  background: #31c3bd;
+  box-shadow: inset 0px -8px 0px #118c87;
+}
+.btn-one,
+.btn-two {
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #1a2a33;
+  width: 100%;
+  padding: 14px;
+}
+
+/* solo */
+.restart-btn {
+  background: #a8bfc9;
+  box-shadow: inset 0px -4px 0px #6b8997;
+  border-radius: 5px;
+  padding: 10px;
+}
+.turn-btn {
+  background: #1f3641;
+  box-shadow: inset 0px -4px 0px #10212a;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.875px;
+  color: #a8bfc9;
+  border-radius: 5px;
+  padding: 10px;
+}
+.turn-btn,
+.restart-btn,
+.btn-one,
+.btn-two,
+.not-active,
+.play-buttons button {
+  border: none;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+.play-buttons button {
+  background: #1f3641;
+  box-shadow: inset 0px -8px 0px #10212a;
+  border-radius: 10px;
+  width: 30%;
+  height: 96px;
+}
+.play-buttons,
+.score-buttons {
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.score-buttons button {
+  width: 30%;
+  height: 64px;
+  border-radius: 10px;
+}
+.x-btn {
+  background-color: #31c3bd;
+  color: black;
+}
+.ties-btn {
+  background: #a8bfc9;
+}
+.o-btn {
+  background: #f2b137;
+}
+.solo-div {
+  display: none;
+}
+.winner,
+.winner-two {
+  background-color: #1f3641;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  display: none;
+}
+.take-round {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+.you-won {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.875px;
+  color: #a8bfc9;
+}
+.winner div,
+.winner-two div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.winner div button,
+.winner-two div button {
+  padding: 15px;
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #1a2a33;
+}
+.quit,
+.yes-restart {
+  background: #a8bfc9;
+  box-shadow: inset 0px -4px 0px #6b8997;
+  border-radius: 10px;
+}
+.next,
+.no-restart {
+  background: #f2b137;
+  box-shadow: inset 0px -4px 0px #cc8b13;
+  border-radius: 10px;
+}
+.x {
+  color: #31c3bd;
+  font-weight: 600;
+  font-size: 60px;
+}
+.o {
+  font-size: 60px;
+  color: #f2b137;
+  font-weight: 600;
+}
