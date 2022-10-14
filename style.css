@@ -1,10 +1,13 @@
 body {
   background-color: #1a2a33;
   font-family: "Outfit", sans-serif;
+  margin: 0;
 }
+
 .blur {
   filter: blur(2px);
 }
+
 .head {
   padding: 24px;
 }
@@ -85,6 +88,7 @@ main {
   color: #1a2a33;
   width: 100%;
   padding: 14px;
+  border: none;
 }
 
 /* solo */
@@ -169,6 +173,7 @@ nav {
   line-height: 30px;
   letter-spacing: 1.5px;
   text-align: center;
+  color: #a8bfc9;
 }
 .you-won {
   font-weight: 700;
@@ -200,12 +205,14 @@ nav {
   background: #a8bfc9;
   box-shadow: inset 0px -4px 0px #6b8997;
   border-radius: 10px;
+  border: none;
 }
 .next,
 .no-restart {
   background: #f2b137;
   box-shadow: inset 0px -4px 0px #cc8b13;
   border-radius: 10px;
+  border: none;
 }
 .x {
   color: #31c3bd;
@@ -216,4 +223,39 @@ nav {
   font-size: 60px;
   color: #f2b137;
   font-weight: 600;
+}
+.test {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
+.x-score,
+.ties-score,
+.o-score {
+  font-style: Bold;
+  font-size: 24px;
+  line-height: 30px;
+  line-height: 100%;
+  text-align: Center;
+  margin: 5px;
+  color: #1a2a33;
+}
+
+@media screen and (min-width: 775px) {
+  .head{
+    padding: 20%;
+  }
+  .winner,
+  .winner-two{
+    top: 50%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .winner,
+  .winner-two{
+    top: 50%;
+  }
+  
 }

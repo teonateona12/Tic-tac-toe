@@ -4,8 +4,6 @@
 const main = document.getElementById("main");
 const clickO = document.getElementById("o-click");
 const clickX = document.getElementById("x-click");
-const btnOne = document.querySelector(".btn-one");
-const btnTwo = document.querySelector(".btn-two");
 const buttons = document.querySelector(".buttons");
 const header = document.querySelector(".header");
 const soloDiv = document.querySelector(".solo-div");
@@ -16,10 +14,13 @@ const textWin = document.querySelector(".you-won");
 const xScore = document.querySelector(".x-score");
 const tieScore = document.querySelector(".ties-score");
 const oScore = document.querySelector(".o-score");
+const btnTwo = document.querySelector(".btn-two");
 const turn = document.querySelector(".turn-btn");
-//const yesRestart = document.querySelector(".yes-restart");
-//const noRestart = document.querySelector(".no-restart");
+const blur = document.querySelector(".test");
+const head = document.querySelector(".head");
 const restartWindow = document.querySelector(".winner-two");
+
+
 
 //Functions
 let currentPlayer = "x";
@@ -49,14 +50,16 @@ let valo = [];
 
 const playGame = (button) => {
   if (currentPlayer == "x") {
-    button.textContent = "x";
+   
+    button.textContent = "X";
     button.classList.add("x");
     currentPlayer = "o";
     turn.textContent = "O TURN";
     valx.push(+button.value);
   } else if (currentPlayer == "o") {
     turn.textContent = "X TURN";
-    button.textContent = "o";
+    button.textContent = "O";
+   
     currentPlayer = "x";
     valo.push(+button.value);
     button.classList.add("o");
@@ -65,16 +68,13 @@ const playGame = (button) => {
 
 //checkin winner
 const checkWinner = (x) => {
- 
   winningCombinations.forEach((tru) => {
     if (tru.every((winningVal) => x.includes(winningVal))) {
       winnerWindow.style.display = "flex";
       document.body.style.backgroundColor = "#000000";
       if (currentPlayer == "o") {
-        soloDiv.classList.add('blur')
         xIsWinner();
-      } else {
-        soloDiv.classList.add('blur')
+      } else if(currentPlayer == "x"){
         oIsWinner();
       }
     }
@@ -98,6 +98,7 @@ const roundTied = () => {
     btnAll[7].textContent !== "" &&
     btnAll[8].textContent !== ""
   ) {
+    blurFunction();
     winnerWindow.style.display = "block";
     takeRound.textContent = "ROUND TIED";
     takeRound.style.color = "#A8BFC9";
@@ -109,6 +110,7 @@ const roundTied = () => {
 
 //if X is winner
 const xIsWinner = () => {
+  blurFunction();
   takeRound.textContent = `X TAKES THE ROUND`;
   takeRound.style.color = "#31c3bd";
   textWin.textContent = "PLAYER 2 WINS!";
@@ -116,7 +118,7 @@ const xIsWinner = () => {
   xScore.textContent = finalXScore + 1;
   finalXScore = +xScore.textContent;
   btnAll.forEach((button) => {
-    if (button.textContent == "x") {
+    if (button.textContent == "X") {
       button.style.backgroundColor = "#31C3BD";
       button.style.color = "#000000";
     }
@@ -125,72 +127,57 @@ const xIsWinner = () => {
 
 //if O is winner
 const oIsWinner = () => {
+  blurFunction();
   takeRound.textContent = `O TAKES THE ROUND`;
   takeRound.style.color = "#F2B137";
   textWin.textContent = "PLAYER 1 WINS!";
   oScore.textContent = finalOScore + 1;
   finalOScore = +oScore.textContent;
   btnAll.forEach((button) => {
-    if (button.textContent == "o") {
+    if (button.textContent == "O") {
       button.style.backgroundColor = "#f2b137";
       button.style.color = "#000000";
     }
   });
 };
 
+//quit function
 const quitFunction = () => {
-  document.body.style.backgroundColor = "#1a2a33";
-  turn.textContent = "X TURN";
   soloDiv.style.display = "none";
   main.style.display = "flex";
   buttons.style.display = "block";
   header.style.display = "flex";
-  winnerWindow.style.display = "none";
   finalOScore.textContent = 0;
   finalXScore.textContent = 0;
-  valx = [];
-  valo = [];
-
-  btnAll.forEach((button) => {
-    soloDiv.classList.remove('blur')
-    button.style.backgroundColor = "#1F3641";
-    button.textContent = "";
-    valo = [];
-    valx = [];
-    button.style.backgroundColor = "#1F3641";
-    document.body.style.backgroundColor = "#1A2A33";
-
-    currentPlayer = "x";
-    finalOScore = 0;
-    finalXScore = 0;
-    button.addEventListener("click", () => {
-      if (button.textContent == "x") {
-        button.style.color = "#31c3bd";
-      } else {
-        button.style.color = "#f2b137";
-      }
-    });
-  });
+  finalOScore = 0;
+  finalXScore = 0;
+  nextRound();
 };
 
+//next round
 const nextRound = () => {
+  removeBlur();
   winnerWindow.style.display = "none";
-  soloDiv.classList.remove('blur')
   turn.textContent = "X TURN";
-  btnAll.forEach((button) => {
-    button.style.backgroundColor = "#1F3641";
-    button.textContent = "";
-    valo = [];
-    valx = [];
-    button.style.backgroundColor = "#1F3641";
-    document.body.style.backgroundColor = "#1A2A33";
+  valo = [];
+  valx = [];
+  document.body.style.backgroundColor = "#1A2A33";
+  currentPlayer = "x";
+  styleNextRound();
+};
 
-    currentPlayer = "x";
+//style for next round
+const styleNextRound = () => {
+  btnAll.forEach((button) => {
+    button.textContent = "";
+    button.style.backgroundColor = "#1F3641";
     button.addEventListener("click", () => {
-      if (button.textContent == "x") {
+      if (button.textContent == "X") {
         button.style.color = "#31c3bd";
+        console.log(button.textContent);
       } else {
         button.style.color = "#f2b137";
+        console.log(button.textContent);
       }
     });
   });
@@ -198,16 +185,30 @@ const nextRound = () => {
 
 //restart button
 const restart = () => {
+  blurFunction();
   restartWindow.style.display = "block";
   document.body.style.backgroundColor = "#000000";
-  soloDiv.classList.add("blur");
+
   btnAll.forEach((button) => {
     button.style.backgroundColor = "#1A2A33";
   });
 };
 
+//blur function
+const blurFunction = () => {
+  head.classList.add("blur");
+  blur.style.display = "block";
+};
+
+//delete blur function
+const removeBlur = () => {
+  head.classList.remove("blur");
+  blur.style.display = "none";
+};
+
 // yes restart
 const yesRestart = () => {
+  removeBlur();
   soloDiv.classList.remove("blur");
   nextRound();
   restartWindow.style.display = "none";
@@ -216,7 +217,9 @@ const yesRestart = () => {
   });
 };
 
+//no restart
 const noRestart = () => {
+  removeBlur();
   soloDiv.classList.remove("blur");
   restartWindow.style.display = "none";
   document.body.style.backgroundColor = "#1a2a33";
