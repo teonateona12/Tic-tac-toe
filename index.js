@@ -15,12 +15,14 @@ const xScore = document.querySelector(".x-score");
 const tieScore = document.querySelector(".ties-score");
 const oScore = document.querySelector(".o-score");
 const btnTwo = document.querySelector(".btn-two");
+const btnOne = document.querySelector(".btn-one");
 const turn = document.querySelector(".turn-btn");
 const blur = document.querySelector(".test");
 const head = document.querySelector(".head");
 const restartWindow = document.querySelector(".winner-two");
-
-
+const xoBtns = document.querySelectorAll(".not-active");
+const xBtn = document.getElementById("x-btn");
+const oBtn = document.getElementById("o-btn");
 
 //Functions
 let currentPlayer = "x";
@@ -36,30 +38,22 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
-btnAll.forEach((button) => {
-  button.addEventListener("click", () => {
-    playGame(button);
-    checkWinner(valo);
-    checkWinner(valx);
-    roundTied();
-  });
-});
-
 let valx = [];
 let valo = [];
 
 const playGame = (button) => {
   if (currentPlayer == "x") {
-   
     button.textContent = "X";
     button.classList.add("x");
     currentPlayer = "o";
     turn.textContent = "O TURN";
+    button.classList.remove("o");
     valx.push(+button.value);
+    button.disabled = true;
   } else if (currentPlayer == "o") {
+    button.disabled = true;
     turn.textContent = "X TURN";
     button.textContent = "O";
-   
     currentPlayer = "x";
     valo.push(+button.value);
     button.classList.add("o");
@@ -74,7 +68,7 @@ const checkWinner = (x) => {
       document.body.style.backgroundColor = "#000000";
       if (currentPlayer == "o") {
         xIsWinner();
-      } else if(currentPlayer == "x"){
+      } else if (currentPlayer == "x") {
         oIsWinner();
       }
     }
@@ -170,14 +164,13 @@ const nextRound = () => {
 const styleNextRound = () => {
   btnAll.forEach((button) => {
     button.textContent = "";
+    button.disabled = false;
     button.style.backgroundColor = "#1F3641";
     button.addEventListener("click", () => {
       if (button.textContent == "X") {
         button.style.color = "#31c3bd";
-        console.log(button.textContent);
       } else {
         button.style.color = "#f2b137";
-        console.log(button.textContent);
       }
     });
   });
@@ -228,11 +221,6 @@ const noRestart = () => {
   });
 };
 
-//button two click
-btnTwo.addEventListener("click", () => {
-  hideElement();
-});
-
 //active and not active function
 const active = (active, notActive) => {
   notActive.classList.remove("active");
@@ -256,3 +244,39 @@ const hideElement = () => {
     xScore.textContent = 0;
   });
 };
+
+//button two click, two player
+btnTwo.addEventListener("click", () => {
+  hideElement();
+  btnAll.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      playGame(button);
+      checkWinner(valo);
+      checkWinner(valx);
+      roundTied();
+    });
+  });
+});
+
+// play game with computer
+xoBtns.forEach((xoBtn) => {
+  xoBtn.addEventListener("click", () => {
+    if (xoBtn.value == "1") {
+      active(xBtn, oBtn);
+      functionForXPlayer();
+    } else if (xoBtn.value == "2") {
+      active(oBtn, xBtn);
+    }
+  });
+});
+
+//when x is playing with computer
+const functionForXPlayer = () => {
+  btnOne.addEventListener("click", () => {
+    hideElement();
+
+  });
+};
+
+
