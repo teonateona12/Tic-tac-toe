@@ -63,6 +63,8 @@ const playGame = (button) => {
 //checkin winner
 const checkWinner = (x) => {
   winningCombinations.forEach((tru) => {
+    // console.log(x);
+    // console.log(tru);
     if (tru.every((winningVal) => x.includes(winningVal))) {
       winnerWindow.style.display = "flex";
       document.body.style.backgroundColor = "#000000";
@@ -108,15 +110,8 @@ const xIsWinner = () => {
   takeRound.textContent = `X TAKES THE ROUND`;
   takeRound.style.color = "#31c3bd";
   textWin.textContent = "PLAYER 2 WINS!";
-
   xScore.textContent = finalXScore + 1;
   finalXScore = +xScore.textContent;
-  btnAll.forEach((button) => {
-    if (button.textContent == "X") {
-      button.style.backgroundColor = "#31C3BD";
-      button.style.color = "#000000";
-    }
-  });
 };
 
 //if O is winner
@@ -127,12 +122,6 @@ const oIsWinner = () => {
   textWin.textContent = "PLAYER 1 WINS!";
   oScore.textContent = finalOScore + 1;
   finalOScore = +oScore.textContent;
-  btnAll.forEach((button) => {
-    if (button.textContent == "O") {
-      button.style.backgroundColor = "#f2b137";
-      button.style.color = "#000000";
-    }
-  });
 };
 
 //quit function
@@ -151,6 +140,7 @@ const quitFunction = () => {
 //next round
 const nextRound = () => {
   removeBlur();
+
   winnerWindow.style.display = "none";
   turn.textContent = "X TURN";
   valo = [];
@@ -246,26 +236,30 @@ const hideElement = () => {
 };
 
 //button two click, two player
-btnTwo.addEventListener("click", () => {
-  hideElement();
-  btnAll.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      e.preventDefault();
-      playGame(button);
-      checkWinner(valo);
-      checkWinner(valx);
-      roundTied();
+const functionForXTwoPlayer = () => {
+  btnTwo.addEventListener("click", () => {
+    hideElement();
+    btnAll.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        playGame(button);
+        checkWinner(valo);
+        checkWinner(valx);
+        roundTied();
+      });
     });
   });
-});
+};
 
 // play game with computer
 xoBtns.forEach((xoBtn) => {
   xoBtn.addEventListener("click", () => {
     if (xoBtn.value == "1") {
       active(xBtn, oBtn);
+      functionForXTwoPlayer();
       functionForXPlayer();
     } else if (xoBtn.value == "2") {
+      functionForXTwoPlayer();
       active(oBtn, xBtn);
     }
   });
@@ -275,8 +269,49 @@ xoBtns.forEach((xoBtn) => {
 const functionForXPlayer = () => {
   btnOne.addEventListener("click", () => {
     hideElement();
-
+    btnAll.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        play(button);
+        // checkWinner(valo);
+        // checkWinner(valx);
+        // roundTied();
+      });
+    });
   });
 };
 
+let useFullNumbers = [];
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
+const play = (button) => {
+  let randomNumber = Math.floor(Math.random() * arr.length);
+  if (+button.value == randomNumber) {
+    console.log(2);
+  }
+  if (button.value !== randomNumber) {
+    styleForX(button);
+    sTyleForO(randomNumber, button);
+  }
+};
+
+const styleForX = (button) => {
+  button.classList.add("x");
+  button.textContent = "X";
+  turn.textContent = "O TURN";
+  valx.push(+button.value);
+  button.disabled = true;
+  currentPlayer = "o";
+  useFullNumbers.push(+button.value);
+};
+
+const sTyleForO = (value, button) => {
+  setTimeout(() => {
+    btnAll[value].textContent = "O";
+    valo.push(+btnAll[value].value);
+    useFullNumbers.push(+btnAll[value].value);
+    btnAll[value].classList.add("o");
+    button.disabled = true;
+    currentPlayer = "x";
+  }, 1000);
+};

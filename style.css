@@ -243,19 +243,28 @@ nav {
   color: #1a2a33;
 }
 
+.x-winner {
+  color: black;
+  background-color: #31c3bd;
+}
+.o-winner {
+  background-color: #f2b137;
+  color: black;
+  
+}
+
 @media screen and (min-width: 775px) {
-  .head{
+  .head {
     padding: 20%;
   }
   .winner,
-  .winner-two{
+  .winner-two {
     top: 50%;
   }
 }
 @media screen and (min-width: 1440px) {
   .winner,
-  .winner-two{
+  .winner-two {
     top: 50%;
   }
-  
 }
