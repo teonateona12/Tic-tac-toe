@@ -63,19 +63,23 @@ const playGame = (button) => {
 //checkin winner
 const checkWinner = (x) => {
   winningCombinations.forEach((tru) => {
-    // console.log(x);
-    // console.log(tru);
+    console.log(valx, "X");
+    console.log(valo, "O");
+    console.log(tru, "combinations");
     if (tru.every((winningVal) => x.includes(winningVal))) {
       winnerWindow.style.display = "flex";
       document.body.style.backgroundColor = "#000000";
       if (currentPlayer == "o") {
         xIsWinner();
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        console.log("X win");
       } else if (currentPlayer == "x") {
         oIsWinner();
+        console.log("O win");
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       }
     }
   });
-  return false;
 };
 let finalXScore = 0;
 let finalOScore = 0;
@@ -273,45 +277,46 @@ const functionForXPlayer = () => {
       button.addEventListener("click", (e) => {
         e.preventDefault();
         play(button);
-        // checkWinner(valo);
-        // checkWinner(valx);
-        // roundTied();
+        checkWinner(valo);
+        checkWinner(valx);
+        roundTied();
       });
     });
   });
 };
 
-let useFullNumbers = [];
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const play = (button) => {
-  let randomNumber = Math.floor(Math.random() * arr.length);
-  if (+button.value == randomNumber) {
-    console.log(2);
-  }
-  if (button.value !== randomNumber) {
-    styleForX(button);
-    sTyleForO(randomNumber, button);
-  }
+  // let randomNumber = Math.floor(Math.random() * 8);
+  styleForX(button);
+  sTyleForO(arr[0], button);
 };
 
 const styleForX = (button) => {
+  const index = arr.indexOf(+button.value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
   button.classList.add("x");
   button.textContent = "X";
   turn.textContent = "O TURN";
   valx.push(+button.value);
   button.disabled = true;
-  currentPlayer = "o";
-  useFullNumbers.push(+button.value);
+  currentPlayer == "x";
 };
 
 const sTyleForO = (value, button) => {
+  valo.push(+btnAll[value].value);
+  const index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  currentPlayer == "o";
+  button.disabled = true;
   setTimeout(() => {
     btnAll[value].textContent = "O";
-    valo.push(+btnAll[value].value);
-    useFullNumbers.push(+btnAll[value].value);
     btnAll[value].classList.add("o");
-    button.disabled = true;
-    currentPlayer = "x";
-  }, 1000);
+   
+  }, 300);
 };
