@@ -27,7 +27,7 @@ const oBtn = document.getElementById("o-btn");
 //Functions
 let currentPlayer = "x";
 turn.textContent = "X TURN";
-let button = true;
+let buttonTrue = true;
 const winningCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -44,40 +44,96 @@ let valo = [];
 
 const playGame = (button) => {
   if (currentPlayer == "x") {
-    button.textContent = "X";
-    button.classList.add("x");
+    xBtnFunction(button);
     currentPlayer = "o";
-    turn.textContent = "O TURN";
-    button.classList.remove("o");
-    valx.push(+button.value);
-    button.disabled = true;
   } else if (currentPlayer == "o") {
+    valo.push(+button.value);
     button.disabled = true;
     turn.textContent = "X TURN";
     button.textContent = "O";
     currentPlayer = "x";
-    valo.push(+button.value);
     button.classList.add("o");
   }
 };
+const xBtnFunction = (button) => {
+  button.textContent = "X";
+  button.classList.add("x");
+  button.classList.remove("o");
+  button.disabled = true;
+  turn.textContent = "O TURN";
+  valx.push(+button.value);
+};
 
-//checkin winner
+//check winner two player, X is choosen
 const checkWinner = (x) => {
   winningCombinations.forEach((tru) => {
-   
-    console.log(arr);
     if (tru.every((winningVal) => x.includes(winningVal))) {
       winnerWindow.style.display = "flex";
       document.body.style.backgroundColor = "#000000";
       if (currentPlayer == "o") {
         xIsWinner();
-        button = false;
+        buttonTrue = false;
         arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-       
       } else if (currentPlayer == "x") {
         oIsWinner();
-        button = false;
-        
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      }
+    }
+  });
+};
+
+//check winner two player, X is choosen
+const checkWinnerTwo = (x) => {
+  winningCombinations.forEach((tru) => {
+    if (tru.every((winningVal) => x.includes(winningVal))) {
+      winnerWindow.style.display = "flex";
+      document.body.style.backgroundColor = "#000000";
+      if (currentPlayer == "o") {
+        xIsWinnerTwo();
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      } else if (currentPlayer == "x") {
+        oIsWinnerTwo();
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      }
+    }
+  });
+};
+
+//check winner two player, X is choosen, play with computer
+const checkWinnerComputer = (x) => {
+  winningCombinations.forEach((tru) => {
+    if (tru.every((winningVal) => x.includes(winningVal))) {
+      winnerWindow.style.display = "flex";
+      document.body.style.backgroundColor = "#000000";
+      if (currentPlayer == "o") {
+        xIsWinnerComputer();
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      } else if (currentPlayer == "x") {
+        oIsWinnerComputer();
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      }
+    }
+  });
+};
+
+//check winner two player, X is choosen, play with computer
+const checkWinnerComputerTwo = (x) => {
+  winningCombinations.forEach((tru) => {
+    if (tru.every((winningVal) => x.includes(winningVal))) {
+      winnerWindow.style.display = "flex";
+      document.body.style.backgroundColor = "#000000";
+      if (currentPlayer == "o") {
+        xIsWinnerTwoComputer();
+        buttonTrue = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      } else if (currentPlayer == "x") {
+        oIsWinnerTwoComputer();
+        buttonTrue = false;
         arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       }
     }
@@ -110,43 +166,91 @@ const roundTied = () => {
   }
 };
 
-//if X is winner
-const xIsWinner = () => {
-  blurFunction();
-  takeRound.textContent = `X TAKES THE ROUND`;
+const oWin = () => {
+  takeRound.style.color = "#F2B137";
+  oScore.textContent = finalOScore + 1;
+  finalOScore = +oScore.textContent;
+};
+const xWin = () => {
   takeRound.style.color = "#31c3bd";
-  textWin.textContent = "PLAYER 2 WINS!";
   xScore.textContent = finalXScore + 1;
   finalXScore = +xScore.textContent;
 };
+//if X is winner then X start the game
+const xIsWinner = () => {
+  blurFunction();
+  takeRound.textContent = `X TAKES THE ROUND`;
+  textWin.textContent = "PLAYER 1 WINS!";
+  xWin();
+};
 
-//if O is winner
+//if O is winner then X start the game
 const oIsWinner = () => {
   blurFunction();
   takeRound.textContent = `O TAKES THE ROUND`;
-  takeRound.style.color = "#F2B137";
+  oWin();
+  textWin.textContent = "PLAYER 2 WINS!";
+};
+
+//if X is winner then O start the game
+const xIsWinnerTwo = () => {
+  blurFunction();
+  takeRound.textContent = `X TAKES THE ROUND`;
+  textWin.textContent = "PLAYER 2 WINS!";
+  xWin();
+};
+
+//if O is winner then O start the game
+const oIsWinnerTwo = () => {
+  blurFunction();
+  takeRound.textContent = `O TAKES THE ROUND`;
   textWin.textContent = "PLAYER 1 WINS!";
-  oScore.textContent = finalOScore + 1;
-  finalOScore = +oScore.textContent;
+  oWin();
+};
+
+//play with computer
+//if X is winner then X start the game
+const xIsWinnerComputer = () => {
+  blurFunction();
+  takeRound.textContent = `X TAKES THE ROUND`;
+  textWin.textContent = "YOU WON!";
+  xWin();
+};
+
+//if O is winner then X start the game
+const oIsWinnerComputer = () => {
+  blurFunction();
+  takeRound.textContent = `O TAKES THE ROUND`;
+  textWin.textContent = "OH NO, YOU LOST...";
+  oWin();
+};
+
+//if X is winner then O start the game
+const xIsWinnerTwoComputer = () => {
+  blurFunction();
+  takeRound.textContent = `X TAKES THE ROUND`;
+  textWin.textContent = "OH NO, YOU LOST...";
+  xWin();
+};
+
+//if O is winner then O start the game
+const oIsWinnerTwoComputer = () => {
+  blurFunction();
+  takeRound.textContent = `O TAKES THE ROUND`;
+  textWin.textContent = "YOU WON!";
+  oWin();
 };
 
 //quit function
 const quitFunction = () => {
-  soloDiv.style.display = "none";
-  main.style.display = "flex";
-  buttons.style.display = "block";
-  header.style.display = "flex";
-  finalOScore.textContent = 0;
-  finalXScore.textContent = 0;
-  finalOScore = 0;
-  finalXScore = 0;
+  arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   nextRound();
 };
 
 //next round
 const nextRound = () => {
   removeBlur();
-
+  buttonTrue = true;
   winnerWindow.style.display = "none";
   turn.textContent = "X TURN";
   valo = [];
@@ -174,10 +278,10 @@ const styleNextRound = () => {
 
 //restart button
 const restart = () => {
+  arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   blurFunction();
   restartWindow.style.display = "block";
   document.body.style.backgroundColor = "#000000";
-
   btnAll.forEach((button) => {
     button.style.backgroundColor = "#1A2A33";
   });
@@ -257,7 +361,22 @@ const functionForXTwoPlayer = () => {
   });
 };
 
-// play game with computer
+//button two click, two player
+const functionForXTwoPlayerOne = () => {
+  btnTwo.addEventListener("click", () => {
+    hideElement();
+    btnAll.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        playGame(button);
+        checkWinnerTwo(valo);
+        checkWinnerTwo(valx);
+        roundTied();
+      });
+    });
+  });
+};
+
 xoBtns.forEach((xoBtn) => {
   xoBtn.addEventListener("click", () => {
     if (xoBtn.value == "1") {
@@ -265,27 +384,53 @@ xoBtns.forEach((xoBtn) => {
       functionForXTwoPlayer();
       functionForXPlayer();
     } else if (xoBtn.value == "2") {
-      functionForXTwoPlayer();
+      functionForXTwoPlayerOne();
+      functionForXPlayerOne();
       active(oBtn, xBtn);
     }
   });
 });
 
-//when x is playing with computer
+//when x is playing with computer, X is choosen
 const functionForXPlayer = () => {
   btnOne.addEventListener("click", () => {
     hideElement();
     btnAll.forEach((button) => {
       button.addEventListener("click", (e) => {
-        e.preventDefault(); 
-        if (button) {
+        e.preventDefault();
+        if (buttonTrue) {
           styleForX(button);
-          checkWinner(valx);
+          checkWinnerComputer(valx);
+          currentPlayer = "x";
+          console.log(currentPlayer);
+        }
+        if (buttonTrue) {
+          sTyleForO(arr[0], button);
+          checkWinnerComputer(valo);
+          currentPlayer = "o";
+          console.log(currentPlayer);
+        }
+        roundTied();
+      });
+    });
+  });
+};
+
+//when x is playing with computer, O is choosen
+const functionForXPlayerOne = () => {
+  btnOne.addEventListener("click", () => {
+    hideElement();
+    btnAll.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (buttonTrue) {
+          styleForX(button);
+          checkWinnerComputerTwo(valx);
           currentPlayer = "x";
         }
-        if (button) {
+        if (buttonTrue) {
           sTyleForO(arr[0], button);
-          checkWinner(valo);
+          checkWinnerComputerTwo(valo);
           currentPlayer = "o";
         }
         roundTied();
@@ -296,19 +441,12 @@ const functionForXPlayer = () => {
 
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-
 const styleForX = (button) => {
   const index = arr.indexOf(+button.value);
   if (index > -1) {
     arr.splice(index, 1);
   }
-  button.classList.remove("o")
-  button.classList.add("x");
-  button.textContent = "X";
-  turn.textContent = "O TURN";
-  valx.push(+button.value);
-  button.disabled = true;
-  
+  xBtnFunction(button);
 };
 
 const sTyleForO = (value, button) => {
@@ -320,8 +458,6 @@ const sTyleForO = (value, button) => {
   turn.textContent = "X TURN";
   btnAll[value].classList.remove("x");
   button.disabled = true;
-  setTimeout(() => {
-    btnAll[value].textContent = "O";
-    btnAll[value].classList.add("o");
-  }, 300);
+  btnAll[value].textContent = "O";
+  btnAll[value].classList.add("o");
 };
