@@ -27,6 +27,7 @@ const oBtn = document.getElementById("o-btn");
 //Functions
 let currentPlayer = "x";
 turn.textContent = "X TURN";
+let button = true;
 const winningCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -63,20 +64,21 @@ const playGame = (button) => {
 //checkin winner
 const checkWinner = (x) => {
   winningCombinations.forEach((tru) => {
-    // console.log(valx, "X");
-    // console.log(valo, "O");
-    // console.log(tru, "combinations");
+   
+    console.log(arr);
     if (tru.every((winningVal) => x.includes(winningVal))) {
       winnerWindow.style.display = "flex";
       document.body.style.backgroundColor = "#000000";
       if (currentPlayer == "o") {
         xIsWinner();
-        // arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        // console.log("X win");
+        button = false;
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+       
       } else if (currentPlayer == "x") {
         oIsWinner();
-        // console.log("O win");
-        // arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        button = false;
+        
+        arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       }
     }
   });
@@ -275,49 +277,51 @@ const functionForXPlayer = () => {
     hideElement();
     btnAll.forEach((button) => {
       button.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Not working yet")
-        // play(button);
-        // checkWinner(valo);
-        // checkWinner(valx);
-        // roundTied();
+        e.preventDefault(); 
+        if (button) {
+          styleForX(button);
+          checkWinner(valx);
+          currentPlayer = "x";
+        }
+        if (button) {
+          sTyleForO(arr[0], button);
+          checkWinner(valo);
+          currentPlayer = "o";
+        }
+        roundTied();
       });
     });
   });
 };
 
-// let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-// const play = (button) => {
-//   // let randomNumber = Math.floor(Math.random() * 8);
-//   styleForX(button);
-//   sTyleForO(arr[0], button);
-// };
 
-// const styleForX = (button) => {
-//   const index = arr.indexOf(+button.value);
-//   if (index > -1) {
-//     arr.splice(index, 1);
-//   }
-//   button.classList.add("x");
-//   button.textContent = "X";
-//   turn.textContent = "O TURN";
-//   valx.push(+button.value);
-//   button.disabled = true;
-//   currentPlayer == "x";
-// };
+const styleForX = (button) => {
+  const index = arr.indexOf(+button.value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  button.classList.remove("o")
+  button.classList.add("x");
+  button.textContent = "X";
+  turn.textContent = "O TURN";
+  valx.push(+button.value);
+  button.disabled = true;
+  
+};
 
-// const sTyleForO = (value, button) => {
-//   valo.push(+btnAll[value].value);
-//   const index = arr.indexOf(value);
-//   if (index > -1) {
-//     arr.splice(index, 1);
-//   }
-//   currentPlayer == "o";
-//   button.disabled = true;
-//   setTimeout(() => {
-//     btnAll[value].textContent = "O";
-//     btnAll[value].classList.add("o");
-   
-//   }, 300);
-// };
+const sTyleForO = (value, button) => {
+  valo.push(+btnAll[value].value);
+  const index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  turn.textContent = "X TURN";
+  btnAll[value].classList.remove("x");
+  button.disabled = true;
+  setTimeout(() => {
+    btnAll[value].textContent = "O";
+    btnAll[value].classList.add("o");
+  }, 300);
+};
